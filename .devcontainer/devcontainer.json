@@ -1,0 +1,56 @@
+{
+	// Dev container name
+	"name": "GH Archive Pipeline",
+
+	// The name of the docker-compose file use 
+	// to start the services
+	"dockerComposeFile": "docker-compose.yml",
+
+	// The service you want to work on. This is 
+	// considered the primary container for your
+	// dev environment which your editor will 
+	// connect to.
+	"service": "app",
+
+	// The path of the workspace folder inside 
+	// the container. This is typically the target
+	// path of a volume mount in the docker-compose.yml.
+	"workspaceFolder": "/workspace",
+		
+	// Set mounts to configure ssh key
+	"mounts": [
+		"source=/home/pitta/.ssh/id_ed25519,target=/root/.ssh/id_ed25519,type=bind"
+	],
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},	
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [9000, 9001, 3000],
+
+	// Uncomment the next line to run commands after the container is created.
+	// Add postCreateCommand to configure zsh, install pre-commit hooks and initialize poetry.
+	"postCreateCommand": "chmod +x .devcontainer/setup-zsh.sh && .devcontainer/setup-zsh.sh",
+	
+	// Add postAttachCommand to add the safe.directory to the git config. More info: https://aka.ms/vscode-remote/containers/advanced-configuration.
+	// Add pre-commit install to install pre-commit hooks and dagster dev to start the dagster server.
+	// Change the safe.directory to the path of your workspace.
+	"postAttachCommand": "git config --global --add safe.directory /workspace && pre-commit install && cd gh-archive && dagster dev",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": { 
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-python.python",
+				"github.copilot",
+				"github.copilot-chat",
+				"github.vscode-github-actions",
+				"GitHub.github-vscode-theme"
+			]
+		}
+	},
+
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "root"
+}

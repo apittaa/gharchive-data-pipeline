@@ -173,3 +173,6 @@ minio-data/
 
 # Data
 data/
+
+# Ruff
+.ruff_cache/

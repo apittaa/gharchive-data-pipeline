@@ -1,79 +1,49 @@
-# Devcontainer Template for Data Engineering Projects
+# GH Archive Data Pipeline - A Data Engineering Project
 
-![image](/images/devcontainer.png)
-This is a template for a devcontainer for data engineering projects with Python, Docker, Poetry, pre-commit, and GitHub Actions (CI/CD).
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Data Source](#data-source)
+3. [Data Pipeline](#data-pipeline)
+4. [Data Model](#data-model)
+5. [ETL Process](#etl-process)
+6. [Data Quality Checks](#data-quality-checks)
+7. [Data Analysis](#data-analysis)
+8. [Conclusion](#conclusion)
 
-The main objective of this template is to provide a development environment that is consistent across different machines and operating systems. This is achieved by defining the development environment in a container using the devcontainer feature of Visual Studio Code.
+## Introduction
+This project is a data engineering project that aims to build a data pipeline to process the data from the [GitHub Archive](https://www.gharchive.org/) project. The data pipeline will extract the data from the GitHub Archive, transform the data into a structured format, and load the data into a data warehouse. The data warehouse will be used to perform data analysis on the data.
 
-## Getting Started
-To get started with this template, you need to have the following tools installed on your machine:
+## Data Source
+The data source for this project is the [GitHub Archive](https://www.gharchive.org/) project. The GitHub Archive project is a project that collects and stores the public GitHub timeline data for analysis. The data is stored in JSON format and is available for download from the GitHub Archive website.
 
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Visual Studio Code Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- [Docker](https://docs.docker.com/get-docker/)
+## Data Pipeline
+The data pipeline for this project consists of the following steps:
+1. Extract the data from the GitHub Archive.
+2. Transform the data into a structured format.
+3. Load the data into a data warehouse.
 
-### Setting up the Development Environment
-1. Clone this repository to your local machine.
-2. Open the repository in Visual Studio Code.
-3. Click on the "Reopen in Container" button in the bottom right corner of the window.
-4. The development environment will be built in a container and you will be able to start developing your project.
+## Data Model
+The data model for this project consists of the following tables:
+1. `events` - Contains information about the events in the GitHub Archive.
+2. `actors` - Contains information about the actors in the GitHub Archive.
+3. `repos` - Contains information about the repositories in the GitHub Archive.
 
-## Features
+## ETL Process
+The ETL process for this project consists of the following steps:
+1. Extract the data from the GitHub Archive.
+2. Transform the data into a structured format.
+3. Load the data into a data warehouse.
 
-### Devcontainer
-Devcontainer is a feature of Visual Studio Code that allows you to define a development environment in a container. This template includes a devcontainer configuration that allows you to develop your project in a container with all the dependencies installed. The devcontainer is defined in the `.devcontainer` directory.
+## Data Quality Checks
+The data quality checks for this project consist of the following checks:
+1. Check that the data has been loaded into the data warehouse.
+2. Check that the data is in the correct format.
 
-### Python
-This template uses Python as the main programming language. The Python version is defined in the `pyproject.toml` file. The dependencies are managed using Poetry.
+## Data Analysis
+The data analysis for this project consists of the following analysis:
+1. Count the number of events in the GitHub Archive.
+2. Count the number of actors in the GitHub Archive.
+3. Count the number of repositories in the GitHub Archive.
 
-### Poetry
-Poetry is a tool for dependency management and packaging in Python. This template uses Poetry to manage the dependencies of the project. The dependencies are defined in the `pyproject.toml` file.
-
-### Pre-commit
-Pre-commit is a framework for managing and maintaining multi-language pre-commit hooks. This template includes a pre-commit configuration that runs code formatting and linting tools on the code before committing it. The pre-commit configuration is defined in the `.pre-commit-config.yaml` file.
-
-### GitHub Actions
-GitHub Actions is a feature of GitHub that allows you to automate your software development workflows. This template includes a GitHub Actions workflow that runs the pre-commit hooks and the tests on the code when a pull request is opened. The GitHub Actions workflow is defined in the `.github/workflows` directory.
-
-## License
-This template is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-
-# Devcontainer Template for Data Engineering Projects
-
-![image](/images/devcontainer.png)
-This is a template for a devcontainer for data engineering projects with Python, Docker, Poetry, pre-commit, and GitHub Actions (CI/CD).
-
-The main objective of this template is to provide a development environment that is consistent across different machines and operating systems. This is achieved by defining the development environment in a container using the devcontainer feature of Visual Studio Code.
-
-## Getting Started
-To get started with this template, you need to have the following tools installed on your machine:
-
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Visual Studio Code Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- [Docker](https://docs.docker.com/get-docker/)
-
-### Setting up the Development Environment
-1. Clone this repository to your local machine.
-2. Open the repository in Visual Studio Code.
-3. Click on the "Reopen in Container" button in the bottom right corner of the window.
-4. The development environment will be built in a container and you will be able to start developing your project.
-
-## Features
-
-### Devcontainer
-Devcontainer is a feature of Visual Studio Code that allows you to define a development environment in a container. This template includes a devcontainer configuration that allows you to develop your project in a container with all the dependencies installed. The devcontainer is defined in the `.devcontainer` directory.
-
-### Python
-This template uses Python as the main programming language. The Python version is defined in the `pyproject.toml` file. The dependencies are managed using Poetry.
-
-### Poetry
-Poetry is a tool for dependency management and packaging in Python. This template uses Poetry to manage the dependencies of the project. The dependencies are defined in the `pyproject.toml` file.
-
-### Pre-commit
-Pre-commit is a framework for managing and maintaining multi-language pre-commit hooks. This template includes a pre-commit configuration that runs code formatting and linting tools on the code before committing it. The pre-commit configuration is defined in the `.pre-commit-config.yaml` file.
-
-### GitHub Actions
-GitHub Actions is a feature of GitHub that allows you to automate your software development workflows. This template includes a GitHub Actions workflow that runs the pre-commit hooks and the tests on the code when a pull request is opened. The GitHub Actions workflow is defined in the `.github/workflows` directory.
-
-## License
-This template is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+## Conclusion
+In conclusion, this project has successfully built a data pipeline to process the data from the GitHub Archive. The data pipeline has extracted the data from the GitHub Archive, transformed the data into a structured format, and loaded the data into a data warehouse. The data warehouse has been used to perform data analysis on the data.

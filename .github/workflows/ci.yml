@@ -38,39 +38,54 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y docker-compose
 
-    # Step 4: Build and start services defined in .devcontainer/docker-compose.yml
+    # Step 4: Create a temporary .env file with GitHub secrets
+    - name: Create .env file
+      run: |
+        echo "MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}" >> envs/minio.env
+        echo "MINIO_ROOT_PASSWORD=${{ secrets.MINIO_ROOT_PASSWORD }}" >> envs/minio.env
+        echo "BRONZE_BUCKET=${{ secrets.BRONZE_BUCKET }}" >> envs/minio.env
+        echo "SILVER_BUCKET=${{ secrets.SILVER_BUCKET }}" >> envs/minio.env
+        echo "GOLD_BUCKET=${{ secrets.GOLD_BUCKET }}" >> envs/minio.env
+        echo "ACCESS_KEY=${{ secrets.ACCESS_KEY }}" >> envs/minio.env
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> envs/minio.env
+
+    # Step 5: Build and start services defined in .devcontainer/docker-compose.yml
     - name: Build and start services
       run: docker-compose -f .devcontainer/docker-compose.yml up --build -d
 
-    # Step 5: Set up Python environment
+    # Step 6: Set up Python environment
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.12' # Specify the Python version you are using
 
-    # Step 6: Install Poetry, a dependency management tool for Python
+    # Step 7: Install Poetry, a dependency management tool for Python
     - name: Install Poetry
       run: |
         python -m pip install --upgrade pip
         pip install poetry
 
-    # Step 7: Install project dependencies using Poetry
+    # Step 8: Install project dependencies using Poetry
     - name: Install dependencies
       run: poetry install
 
-    # Step 8: Install pre-commit
+    # Step 9: Install pre-commit
     - name: Install pre-commit
       run: poetry run pip install pre-commit
 
-    # Step 9: Run pre-commit hooks to ensure code quality
+    # Step 10: Run pre-commit hooks to ensure code quality
     - name: Run pre-commit hooks
       run: poetry run pre-commit run --all-files
 
-    # # Step 10: Run tests using pytest inside the Docker container
+    # # Step 11: Run tests using pytest inside the Docker container
     # - name: Run tests
     #   run: |
     #     docker-compose -f .devcontainer/docker-compose.yml exec app poetry run pytest
 
-    # Step 11: Tear down services
+    # Step 12: Tear down services
     - name: Tear down services
       run: docker-compose -f .devcontainer/docker-compose.yml down
+
+    # Step 13: Remove the temporary .env file (optional)
+    - name: Clean up .env file
+      run: rm -f envs/minio.env

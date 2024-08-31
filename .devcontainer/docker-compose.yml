@@ -9,14 +9,69 @@ services:
     # Mounts the project directory into the container for live code syncing
     volumes:
       - ..:/workspace:cached  # Mount the parent directory to `/workspace` in the container
-      - dagster-home:/workspace/gh-archive/dagster_home  # Mounts a persistent volume for Dagster's home directory
+      - dagster-home:/workspace/gharchive_dagster/dagster_home  # Mounts a persistent volume for Dagster's home directory
     
     # Sets environment variables for the container
     environment:
-      DAGSTER_HOME: /workspace/gh-archive/dagster_home  # Specifies the directory where Dagster will store persistent data
+      DAGSTER_HOME: /workspace/gharchive_dagster/dagster_home  # Specifies the directory where Dagster will store persistent data
     
     # Keeps the container running by executing a long-running dummy command
     command: /bin/sh -c "while sleep 1000; do :; done"
+
+  trino:
+    hostname: trino  # The hostname for the Trino service
+    image: trinodb/trino  # The image used to run Trino
+    ports:
+      - '8080:8080'  # Maps port 8080 for the Trino service
+    volumes:
+       - ../trino/catalog:/etc/trino/catalog:ro
+
+# HMS backend database
+  metastore_db:
+    image: postgres:11
+    hostname: metastore_db
+    container_name: metastore_db
+    environment:
+      POSTGRES_USER: hive
+      POSTGRES_PASSWORD: hive
+      POSTGRES_DB: metastore
+
+  # Hive metastore service (HMS)
+  hive-metastore:
+    container_name: hive-metastore
+    hostname: hive-metastore
+    image: 'starburstdata/hive:3.1.2-e.15'
+    ports:
+      - '9083:9083' # Metastore Thrift
+    environment:
+      HIVE_METASTORE_DRIVER: org.postgresql.Driver
+      HIVE_METASTORE_JDBC_URL: jdbc:postgresql://metastore_db:5432/metastore
+      HIVE_METASTORE_USER: hive
+      HIVE_METASTORE_PASSWORD: hive
+      HIVE_METASTORE_WAREHOUSE_DIR: s3://"$${GOLD_BUCKET}"/
+      S3_ENDPOINT: http://s3service:9000
+      S3_ACCESS_KEY: "$${ACCESS_KEY}"
+      S3_SECRET_KEY: "$${SECRET_KEY}"
+      S3_PATH_STYLE_ACCESS: "true"
+      REGION: ""
+      GOOGLE_CLOUD_KEY_FILE_PATH: ""
+      AZURE_ADL_CLIENT_ID: ""
+      AZURE_ADL_CREDENTIAL: ""
+      AZURE_ADL_REFRESH_URL: ""
+      AZURE_ABFS_STORAGE_ACCOUNT: ""
+      AZURE_ABFS_ACCESS_KEY: ""
+      AZURE_WASB_STORAGE_ACCOUNT: ""
+      AZURE_ABFS_OAUTH: ""
+      AZURE_ABFS_OAUTH_TOKEN_PROVIDER: ""
+      AZURE_ABFS_OAUTH_CLIENT_ID: ""
+      AZURE_ABFS_OAUTH_SECRET: ""
+      AZURE_ABFS_OAUTH_ENDPOINT: ""
+      AZURE_WASB_ACCESS_KEY: ""
+    depends_on:
+      - metastore_db
+
+    # Loads environment variables from an external file
+    env_file: ../envs/minio.env  # Loads environment variables from a file
 
   s3service:
     # Pulls the Minio image to create an object storage service
@@ -66,3 +121,7 @@ services:
 volumes:
   minio-data: {}  # Persistent storage for Minio data, managed by Docker
   dagster-home: {}  # Persistent storage for Dagster's home directory, managed by Docker
+
+networks:
+  trino-networks:
+    driver: bridge  # Specifies the network driver for the Trino service

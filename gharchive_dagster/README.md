@@ -1,4 +1,4 @@
-# gh_archive
+# gharchive_dagster
 
 This is a [Dagster](https://dagster.io/) project scaffolded with [`dagster project scaffold`](https://docs.dagster.io/getting-started/create-new-project).
 
@@ -18,7 +18,7 @@ dagster dev
 
 Open http://localhost:3000 with your browser to see the project.
 
-You can start writing assets in `gh_archive/assets.py`. The assets are automatically loaded into the Dagster code location as you define them.
+You can start writing assets in `gharchive_dagster/assets.py`. The assets are automatically loaded into the Dagster code location as you define them.
 
 ## Development
 
@@ -28,10 +28,10 @@ You can specify new Python dependencies in `setup.py`.
 
 ### Unit testing
 
-Tests are in the `gh_archive_tests` directory and you can run tests using `pytest`:
+Tests are in the `gharchive_dagster_tests` directory and you can run tests using `pytest`:
 
 ```bash
-pytest gh_archive_tests
+pytest gharchive_dagster_tests
 ```
 
 ### Schedules and sensors

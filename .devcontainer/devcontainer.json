@@ -35,7 +35,7 @@
 	// Add postAttachCommand to add the safe.directory to the git config. More info: https://aka.ms/vscode-remote/containers/advanced-configuration.
 	// Add pre-commit install to install pre-commit hooks and dagster dev to start the dagster server.
 	// Change the safe.directory to the path of your workspace.
-	"postAttachCommand": "git config --global --add safe.directory /workspace && pre-commit install && cd gh-archive && dagster dev",
+	"postAttachCommand": "git config --global --add safe.directory /workspace && pre-commit install && cd gharchive_dagster && dagster dev",
 
 	// Configure tool-specific properties.
 	"customizations": {

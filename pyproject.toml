@@ -6,10 +6,11 @@ authors = ["Arthur Pitta <arthurpitta21@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
-dagster = "1.8.2"
-dagster-webserver = "1.8.2"
-dagster-postgres = "0.24.2"
+dagster = "1.8.4"
+dagster-webserver = "1.8.4"
+dagster-dbt = "0.24.4"
 requests = "^2.32.3"
+dbt-trino = "^1.8.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^8.3.2"

@@ -1,0 +1,9 @@
+# workspace.yaml or specific job configuration
+
+resources:
+  spark_session:
+    config:
+      app_name: "spark_session"
+  s3_connection:
+    config:
+      app_name: "s3_connection"

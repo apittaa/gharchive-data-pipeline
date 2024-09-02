@@ -12,7 +12,7 @@ COPY . /workspace/
 
 # Update the package list and install Git.
 # Install Poetry, a tool for managing Python project dependencies, without using the cache to reduce the image size.
-RUN apt-get update && apt-get install -y git && \
+RUN apt-get update && apt-get install -y git default-jdk && \
     pip install poetry --no-cache-dir
 
 # Configure Poetry not to create virtual environments (so dependencies are installed directly in the container's environment).
